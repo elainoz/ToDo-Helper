@@ -1,7 +1,7 @@
 # ToDo-Helper
 
-Elaine Zhang, Ruoxi Li
-April 19, 2021
+Elaine Zhang, Ruoxi Li  
+April 19, 2021  
 CSC 212 
 
 Our program helps to keep track of todo lists. The user will be able to create their own categories as new lists and add or delete elements from the lists. There is also the option to write all the lists into a file, so the user can print it out. We will use ArrayLists of ArrayLists to store the todo lists. We will display the menu below for the user to navigate the program: 
