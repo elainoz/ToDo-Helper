@@ -8,8 +8,10 @@ Our program helps to keep track of todo lists. The user will be able to create t
 
 Menu.
 1. create a new list/category
-2. delete list
+2. delete a list
 3. add item to existing list
 4. delete item from existing list
-5. write file
+5. write file  
+6. view all lists and items
+7. choose lists to view
 0. Exit
