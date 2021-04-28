@@ -26,5 +26,5 @@ Menu.
 7. Choose list(s) to view
     - Enter the menu number from the lists displayed. The specified lists with all its items and due dates will be displayed.
 8. Find all items due on a date
-    - Enter the date in the form "MM/DD". Items with the corresponding date will be displayed. The program will given an error if the form is written incorrectly.
+    - Enter the date in the form "MM/DD/YYYY". Items with the corresponding date will be displayed. The program will given an error if the form is written incorrectly.
 0. exit
