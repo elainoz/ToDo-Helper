@@ -31,46 +31,50 @@ class TodoHelper{
         } while(op != '0');
     }
 
-    static void newList(){ // CASE 1: create new list by asking for a new list title and adding to todoLists
-        HashMap<String, String> items = new HashMap<>(); // store items and due dates
-        TodoList t;
-        do{ // keep asking if title already exists
+    static void newList(){ // CASE 1: create new list by asking for a new list name and adding to todoLists
+        HashMap<String, String> items = new HashMap<>(); // store key=items and value=due dates
+        TodoList t; 
+        String newLst; // new list name
+        cin.useDelimiter(System.lineSeparator()); // use next() instead of nextLine()
+        do{ // keep asking if name already exists
             System.out.print("Enter name of new list: ");
-            // FIXME: ugh this nextLine thing - i don't like :(
-            cin.nextLine();
-            String newLst = cin.nextLine(); // new list name
+            newLst = cin.next(); // new list name
             t = new TodoList(newLst, items); // create new todolist 
             if(arrcontains(t)){
                 System.out.println("Error. Name already exists, enter a different name.");
             }
         } while(arrcontains(t)); 
-        todoLists.add(t);
-        System.out.println(todoLists);
-        // ArrayList<String> items = new ArrayList<>(); // ask for items list
-        // ArrayList<String> dueDates = new ArrayList<>(); //ask for due dates of items
-        // char addItem; 
-        // do{ // keep asking if user wants to enter items
-        //     System.out.print("Enter item (y/n)? ");
-        //     addItem = cin.next().charAt(0);
-        //     if(addItem == 'y'){
-        //         System.out.print("Enter item: "); // ask for item name
-        //         cin.nextLine();
-        //         String itemName = cin.nextLine();
-        //         items.add(itemName); // add user item to arraylist
-        //         System.out.print("Enter due date (y/n)? "); // ask for due dates
-        //         char addDate = cin.next().charAt(0);
-        //         String date;
-        //         if(addDate == 'y'){
-        //             System.out.print("Enter due date (MM/DD/YYYY): ");
-        //             date = cin.next();
-        //         }
-        //         else{
-        //             date = "00/00/0000";
-        //         }
-        //         dueDates.add(date);
-        //     }
-        // } while(addItem == 'y');
 
+        char addItem; 
+        do{ // keep asking if user wants to enter items
+            System.out.print("Enter item (y/n)? ");
+            addItem = cin.next().charAt(0);
+            if(addItem == 'y'){
+                System.out.print("Enter item: "); // ask for item name
+                String itemName = cin.next();
+                System.out.print("Enter due date (y/n)? "); // ask for due dates
+                char addDate = cin.next().charAt(0);
+                String date;
+                if(addDate == 'y'){
+                    do{ // keep asking for date if wrong format
+                        System.out.print("Enter due date (MM/DD/YYYY): ");
+                        date = cin.next();
+                        if(!checkDate(date)){  // if wrong format
+                            System.out.println("Error. Check format of date.");
+                        }
+                    } while(!checkDate(date));
+                    
+                }
+                else{
+                    date = "NA";
+                }
+                items.put(itemName, date); 
+            }
+        } while(addItem == 'y');
+        t = new TodoList(newLst, items); // create new list 
+        todoLists.add(t);
+        System.out.println("Created new list " + newLst + ": ");
+        printTodos();
     }
 
     static void delList(){ // CASE 2: delete list chosen by user
@@ -86,7 +90,24 @@ class TodoHelper{
             }
         }
         return false;
-    }   
+    }
+
+    static boolean checkDate(String d){ // check input of date, make sure in format "MM/DD/YYYY", return true if good
+        if(d.length() != 10){
+            return false;
+        }
+        String[] arrD = d.split("/"); // [MM, DD, YYYY]
+        if(arrD[0].length() != 2 || arrD[1].length() != 2 || arrD[2].length() != 4){
+            return false;
+        }
+        return true;
+    }
+    
+    static void printTodos(){ // print todoLists
+        for(TodoList t : todoLists){
+            System.out.println(t);
+        }
+    }
 }
 
 class TodoList{
