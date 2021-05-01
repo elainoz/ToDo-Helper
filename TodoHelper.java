@@ -14,7 +14,7 @@ class TodoHelper{
         char op; // user option
         do{
             // menu
-            System.out.print("\nMenu.\n1.Create new list\n2.Delete list\n3.Add item to existing list\n4.Delete item from existing list\n5.Write into file\n6.View all lists and items\n7.Choose list(s) to view\n8.Find all items due on a date\n0.Exit\nOption? "); 
+            System.out.print("\nMenu.\n1.Create new list\n2.Delete list\n3.Add item to existing list\n4.Delete item from existing list\n5.Write into file\n6.View all lists and items\n7.Choose list to view\n8.Find all items due on a date\n0.Exit\nOption? "); 
             op = cin.next().charAt(0); 
             switch(op){
                 case '1': newList(); break;
@@ -23,7 +23,7 @@ class TodoHelper{
                 //case '4':
                 //case '5':
                 //case '6':
-                //case '7': chooseLists(); break;
+                case '7': chooseLists(); break;
                 //case '8': findDueDates(); break;
                 case '0': System.out.println("Goodbye."); break; // exit
                 default: System.out.println("Error. Enter a number in menu.");
@@ -78,34 +78,23 @@ class TodoHelper{
     }
 
     static void delList(){ // CASE 2: delete list chosen by user
-        if(todoLists.size() == 0){ // check for empty todoLists 
+        if(todoLists.isEmpty()){ // check for empty todoLists 
             System.out.println("No lists entered. Cannot delete a list.");
             return;
         }
-        for(int i = 0; i < todoLists.size(); i++){ // display menu of existing lists
-            System.out.println(i+1 + ". " + todoLists.get(i).getName());
-        }
-
-        char num;
-        boolean goodInput;
-        do{ // keep asking for num if not a number in menu
-            System.out.print("Enter num of list to delete: ");
-            num = cin.next().charAt(0);
-            goodInput = checkMenuNum(num, todoLists.size()); // check if num is in range
-            if(!goodInput){
-                System.out.println("Error. Make sure you enter a number in the menu.");
-            }
-        } while(!goodInput);
-
-        int index = Integer.parseInt(String.valueOf(num))-1; // convert char num to int
+        int index = userMenuChoice(); // get user num input 
         System.out.println("Deleted list " + todoLists.get(index).getName() + ": ");
-        todoLists.remove(index);
+        todoLists.remove(index); // delete list
         printTodos();
     }
 
     static void chooseLists(){ // CASE 7: choose lists to view
-        // display menu of lists
-
+        if(todoLists.isEmpty()){ // check for empty todoLists 
+            System.out.println("No lists entered. No list to view.");
+            return;
+        }
+        int index = userMenuChoice(); // get user num input
+        System.out.println(todoLists.get(index)); // print list chosen
     }
 
     static void findDueDates(){ // CASE 8: print all items due on a date
@@ -132,6 +121,23 @@ class TodoHelper{
         return false;
     }
 
+    static int userMenuChoice(){ // display a menu and have user choose a list num
+        for(int i = 0; i < todoLists.size(); i++){ 
+            System.out.println(i+1 + ". " + todoLists.get(i).getName());
+        }
+        char num;
+        boolean goodInput;
+        do{ // keep asking for num if not a number in menu
+            System.out.print("Enter num of list: ");
+            num = cin.next().charAt(0);
+            goodInput = checkMenuNum(num, todoLists.size()); // check if num is in range
+            if(!goodInput){
+                System.out.println("Error. Make sure you enter a number in the menu.");
+            }
+        } while(!goodInput);
+        return Integer.parseInt(String.valueOf(num))-1; // convert char num to int and get index
+    }
+
     static boolean checkDate(String d){ // check input of date, make sure in format "MM/DD/YYYY", return true if good
         if(d.length() != 10){
             return false;
@@ -142,7 +148,7 @@ class TodoHelper{
         }
         return true;
     }
-    
+ 
     static void printTodos(){ // print todoLists
         if(todoLists.isEmpty()){
             System.out.println("No lists.");
