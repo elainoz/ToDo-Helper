@@ -18,7 +18,7 @@ class TodoHelper{
             op = cin.next().charAt(0); 
             switch(op){
                 case '1': newList(); break;
-                //case '2': delList();
+                case '2': delList(); break;
                 //case '3':
                 //case '4':
                 //case '5':
@@ -78,9 +78,29 @@ class TodoHelper{
     }
 
     static void delList(){ // CASE 2: delete list chosen by user
-        // display menu of existing lists
-        // check for empty todoLists and out of bounds
+        if(todoLists.size() == 0){ // check for empty todoLists 
+            System.out.println("No lists entered. Cannot delete a list.");
+            return;
+        }
+        for(int i = 0; i < todoLists.size(); i++){ // display menu of existing lists
+            System.out.println(i+1 + ". " + todoLists.get(i).getName());
+        }
 
+        char num;
+        boolean goodInput;
+        do{ // keep asking for num if not a number in menu
+            System.out.print("Enter num of list to delete: ");
+            num = cin.next().charAt(0);
+            goodInput = checkMenuNum(num, todoLists.size()); // check if num is in range
+            if(!goodInput){
+                System.out.println("Error. Make sure you enter a number in the menu.");
+            }
+        } while(!goodInput);
+
+        int index = Integer.parseInt(String.valueOf(num))-1; // convert char num to int
+        System.out.println("Deleted list " + todoLists.get(index).getName() + ": ");
+        todoLists.remove(index);
+        printTodos();
     }
 
     static boolean arrcontains(TodoList tlst){ // check if tlst name in arraylist
@@ -88,6 +108,17 @@ class TodoHelper{
             if(t.equals(tlst)){
                 return true;
             }
+        }
+        return false;
+    }
+
+    static boolean checkMenuNum(char userNum, int menuSize){ //check userNum is a number between 1 and menuSize, return true if good
+        if(!(userNum >= '0' && userNum <= '9')){ // check if char is a number
+            return false;
+        }
+        int n = Integer.parseInt(String.valueOf(userNum));
+        if(1 <= n && n <= menuSize){
+            return true;
         }
         return false;
     }
@@ -104,6 +135,10 @@ class TodoHelper{
     }
     
     static void printTodos(){ // print todoLists
+        if(todoLists.isEmpty()){
+            System.out.println("No lists.");
+            return;
+        }
         for(TodoList t : todoLists){
             System.out.println(t);
         }
@@ -117,6 +152,10 @@ class TodoList{
     public TodoList(String name, HashMap <String, String> items){
         this.name = name;
         this.items = items;
+    }
+
+    public String getName(){
+        return name;
     }
 
     public void addItem(String item, String date){ // add item 
