@@ -8,9 +8,8 @@ import java.io.*; // read file
 class TodoHelper{
 
     static Scanner cin = new Scanner(System.in);
-    static HashMap<String, ArrayList<String>> todoLists = new HashMap<>(); // value: todo lists // key: list title 
-    static HashMap<String, ArrayList<String>> dates = new HashMap<>(); // value: "MM/DD/YYYY" if no date, "00/00/0000" // key: same list titles
-
+    static ArrayList<TodoList> todoLists = new ArrayList<>(); // store all todo lists created
+    
     public static void main(String[] args) {
         char op; // user option
         do{
@@ -35,11 +34,11 @@ class TodoHelper{
     static void newList(){ // CASE 1: create new list by asking for a new list title and adding to todoLists
         String newLst; // ask for title of list
         do{ // keep asking if title already exists
-            System.out.print("Enter title of new list: ");
+            System.out.print("Enter name of new list: ");
             cin.nextLine();
             newLst = cin.nextLine(); // new list title
             if(todoLists.keySet().contains(newLst)){
-                System.out.println("Error. Title already exists, enter a different title.");
+                System.out.println("Error. Name already exists, enter a different name.");
             }
         } while(todoLists.keySet().contains(newLst)); 
         
@@ -74,5 +73,27 @@ class TodoHelper{
         // display menu of existing lists
         // check for empty todoLists and out of bounds
 
+    }
+}
+
+class TodoList{
+    private String name; // name of list
+    private HashMap <String, String> items; // key = item, value = due date
+
+    public TodoList(String name, HashMap <String, String> items){
+        this.name = name;
+        this.items = items;
+    }
+
+    public void addItem(String item, String date){ // add item 
+        items.put(item, date);
+    }
+
+    public void delItem(String item){ // delete item 
+        items.remove(item);
+    }
+
+    public String toString(){
+        return name + ": " + items;
     }
 }
