@@ -36,6 +36,7 @@ class TodoHelper{
         TodoList t;
         do{ // keep asking if title already exists
             System.out.print("Enter name of new list: ");
+            // FIXME: ugh this nextLine thing - i don't like :(
             cin.nextLine();
             String newLst = cin.nextLine(); // new list name
             t = new TodoList(newLst, items); // create new todolist 
