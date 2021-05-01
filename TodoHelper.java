@@ -24,7 +24,7 @@ class TodoHelper{
                 //case '5':
                 //case '6':
                 case '7': chooseLists(); break;
-                //case '8': findDueDates(); break;
+                case '8': findDueDates(); break;
                 case '0': System.out.println("Goodbye."); break; // exit
                 default: System.out.println("Error. Enter a number in menu.");
             }
@@ -98,7 +98,36 @@ class TodoHelper{
     }
 
     static void findDueDates(){ // CASE 8: print all items due on a date
-        // user enter date
+        String d;
+        cin.useDelimiter(System.lineSeparator()); // use next() instead of nextLine();
+        do{ // keep asking for date if wrong format
+            System.out.print("Enter date (MM/DD/YYYY): ");
+            d = cin.next(); // get user date
+            if(!checkDate(d)){
+                System.out.println("Error. Check format of date.");
+            }
+        } while(!checkDate(d));
+        
+        // search for items with date in todolists
+        ArrayList<String> matches = new ArrayList<>(); // store items-listname with due date
+        for(TodoList t : todoLists){
+            HashMap<String, String> listItems = t.getItems(); 
+            ArrayList<String> vals = new ArrayList<>(listItems.values());
+            ArrayList<String> ks = new ArrayList<>(listItems.keySet());
+            for(int i = 0; i < vals.size(); i++){
+                if(vals.get(i).equals(d)){
+                    matches.add(ks.get(i)+ " - from list " + t.getName()); 
+                }
+            }
+        }
+        if(matches.isEmpty()){
+            System.out.println("No items with this due date.");
+        }
+        else{
+            for(String s : matches){
+                System.out.println(s);
+            }
+        }
     }
 
     static boolean arrcontains(TodoList tlst){ // check if tlst name in arraylist
@@ -171,6 +200,10 @@ class TodoList{
 
     public String getName(){
         return name;
+    }
+
+    public HashMap <String, String> getItems(){ 
+        return items;
     }
 
     public void addItem(String item, String date){ // add item 
