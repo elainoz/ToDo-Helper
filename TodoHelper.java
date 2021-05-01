@@ -32,40 +32,43 @@ class TodoHelper{
     }
 
     static void newList(){ // CASE 1: create new list by asking for a new list title and adding to todoLists
-        String newLst; // ask for title of list
+        HashMap<String, String> items = new HashMap<>(); // store items and due dates
+        TodoList t;
         do{ // keep asking if title already exists
             System.out.print("Enter name of new list: ");
             cin.nextLine();
-            newLst = cin.nextLine(); // new list title
-            if(todoLists.keySet().contains(newLst)){
+            String newLst = cin.nextLine(); // new list name
+            t = new TodoList(newLst, items); // create new todolist 
+            if(arrcontains(t)){
                 System.out.println("Error. Name already exists, enter a different name.");
             }
-        } while(todoLists.keySet().contains(newLst)); 
-        
-        ArrayList<String> items = new ArrayList<>(); // ask for items list
-        ArrayList<String> dueDates = new ArrayList<>(); //ask for due dates of items
-        char addItem; 
-        do{ // keep asking if user wants to enter items
-            System.out.print("Enter item (y/n)? ");
-            addItem = cin.next().charAt(0);
-            if(addItem == 'y'){
-                System.out.print("Enter item: "); // ask for item name
-                cin.nextLine();
-                String itemName = cin.nextLine();
-                items.add(itemName); // add user item to arraylist
-                System.out.print("Enter due date (y/n)? "); // ask for due dates
-                char addDate = cin.next().charAt(0);
-                String date;
-                if(addDate == 'y'){
-                    System.out.print("Enter due date (MM/DD/YYYY): ");
-                    date = cin.next();
-                }
-                else{
-                    date = "00/00/0000";
-                }
-                dueDates.add(date);
-            }
-        } while(addItem == 'y');
+        } while(arrcontains(t)); 
+        todoLists.add(t);
+        System.out.println(todoLists);
+        // ArrayList<String> items = new ArrayList<>(); // ask for items list
+        // ArrayList<String> dueDates = new ArrayList<>(); //ask for due dates of items
+        // char addItem; 
+        // do{ // keep asking if user wants to enter items
+        //     System.out.print("Enter item (y/n)? ");
+        //     addItem = cin.next().charAt(0);
+        //     if(addItem == 'y'){
+        //         System.out.print("Enter item: "); // ask for item name
+        //         cin.nextLine();
+        //         String itemName = cin.nextLine();
+        //         items.add(itemName); // add user item to arraylist
+        //         System.out.print("Enter due date (y/n)? "); // ask for due dates
+        //         char addDate = cin.next().charAt(0);
+        //         String date;
+        //         if(addDate == 'y'){
+        //             System.out.print("Enter due date (MM/DD/YYYY): ");
+        //             date = cin.next();
+        //         }
+        //         else{
+        //             date = "00/00/0000";
+        //         }
+        //         dueDates.add(date);
+        //     }
+        // } while(addItem == 'y');
 
     }
 
@@ -74,6 +77,15 @@ class TodoHelper{
         // check for empty todoLists and out of bounds
 
     }
+
+    static boolean arrcontains(TodoList tlst){ // check if tlst name in arraylist
+        for(TodoList t : todoLists){
+            if(t.equals(tlst)){
+                return true;
+            }
+        }
+        return false;
+    }   
 }
 
 class TodoList{
@@ -91,6 +103,10 @@ class TodoList{
 
     public void delItem(String item){ // delete item 
         items.remove(item);
+    }
+
+    public boolean equals(TodoList tlst){ // check if 2 TodoLists equal
+        return name.equalsIgnoreCase(tlst.name);
     }
 
     public String toString(){
