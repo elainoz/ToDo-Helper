@@ -23,8 +23,8 @@ class TodoHelper{
                 //case '4':
                 //case '5':
                 //case '6':
-                //case '7': 
-                //case '8':
+                //case '7': chooseLists(); break;
+                //case '8': findDueDates(); break;
                 case '0': System.out.println("Goodbye."); break; // exit
                 default: System.out.println("Error. Enter a number in menu.");
             }
@@ -101,6 +101,15 @@ class TodoHelper{
         System.out.println("Deleted list " + todoLists.get(index).getName() + ": ");
         todoLists.remove(index);
         printTodos();
+    }
+
+    static void chooseLists(){ // CASE 7: choose lists to view
+        // display menu of lists
+
+    }
+
+    static void findDueDates(){ // CASE 8: print all items due on a date
+        // user enter date
     }
 
     static boolean arrcontains(TodoList tlst){ // check if tlst name in arraylist
