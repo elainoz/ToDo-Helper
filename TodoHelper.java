@@ -11,6 +11,11 @@ class TodoHelper{
     static ArrayList<TodoList> todoLists = new ArrayList<>(); // store all todo lists created
     
     public static void main(String[] args) {
+        String filename = "todoList.txt";
+        readFile(filename); // read file
+        System.out.println("Your Todo Lists: ");
+        printTodos(); // print what is read
+
         char op; // user option
         do{
             // menu
@@ -24,10 +29,52 @@ class TodoHelper{
                 //case '5':
                 case '6': chooseLists(); break;
                 case '7': findDueDates(); break;
-                case '0': System.out.println("Goodbye."); break; // exit
+                case '0': writeFile(filename); System.out.println("Goodbye. Changes are saved in file \"todoList.txt\"."); break; // exit
                 default: System.out.println("Error. Enter a number in menu.");
             }
         } while(op != '0');
+    }
+
+    static void readFile(String filename){ // read file to store in todoLists
+        Scanner fin = null;
+        try{ // read file
+            fin = new Scanner(new File(filename));
+        }
+        catch(IOException ex){
+            System.out.println(ex);
+        }
+        while(fin.hasNext()){ 
+            String line = fin.nextLine(); // read line by line
+            String[] arr = line.split(","); // listName, item1, date1, item2, date2...
+            String name = arr[0];
+            HashMap<String, String> items = new HashMap<>(); // key=itemname, val=date
+            for(int i = 1; i < arr.length; i+=2){ // add items/dates to hashmap
+                items.put(arr[i], arr[i+1]);
+            }
+            TodoList t = new TodoList(name, items); // new todolist object
+            todoLists.add(t); // add to arraylist
+        }
+        fin.close();
+    }
+
+    static void writeFile(String filename){ // save changes by writing in file
+        PrintWriter fout = null; // write file
+        try{
+            fout = new PrintWriter(new File(filename));
+        }
+        catch(IOException ex){
+            System.out.println(ex);
+        }
+        for(TodoList t : todoLists){ // write each todolist in file
+            fout.write(t.getName());
+            Object[] itemNames = t.getItems().keySet().toArray(); // key set
+            Object[] dates = t.getItems().values().toArray(); // values
+            for(int i = 0; i < itemNames.length; i++){
+                fout.write("," + itemNames[i] + "," + dates[i]); // write item,date
+            }
+            fout.write("\n"); 
+        }
+        fout.close();
     }
 
     static void newList(){ // CASE 1: create new list by asking for a new list name and adding to todoLists
@@ -111,11 +158,11 @@ class TodoHelper{
         ArrayList<String> matches = new ArrayList<>(); // store items-listname with due date
         for(TodoList t : todoLists){
             HashMap<String, String> listItems = t.getItems(); 
-            ArrayList<String> vals = new ArrayList<>(listItems.values());
-            ArrayList<String> ks = new ArrayList<>(listItems.keySet());
-            for(int i = 0; i < vals.size(); i++){
-                if(vals.get(i).equals(d)){
-                    matches.add(ks.get(i)+ " - from list " + t.getName()); 
+            Object[] vals = listItems.values().toArray(); // values set
+            Object[] ks = listItems.keySet().toArray(); // keys set
+            for(int i = 0; i < vals.length; i++){
+                if(vals[i].equals(d)){
+                    matches.add(ks[i]+ " - from list " + t.getName()); 
                 }
             }
         }
