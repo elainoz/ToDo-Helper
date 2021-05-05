@@ -137,6 +137,7 @@ class TodoHelper{
     static void addItem(){
         int index = userMenuChoice(); // get user num input
         char addItem; 
+        cin.useDelimiter(System.lineSeparator()); // use next() instead of nextLine()
         do{ // keep asking if user wants to enter items
             System.out.print("Enter item (y/n)? ");
             addItem = cin.next().charAt(0);
