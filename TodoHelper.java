@@ -24,8 +24,8 @@ class TodoHelper{
             switch(op){
                 case '1': newList(); break;
                 case '2': delList(); break;
-                //case '3':
-                //case '4':
+                case '3': addItem(); break;
+                case '4': delItem(); break;
                 //case '5':
                 case '6': chooseLists(); break;
                 case '7': findDueDates(); break;
@@ -132,6 +132,58 @@ class TodoHelper{
         System.out.println("Deleted list " + todoLists.get(index).getName() + ": ");
         todoLists.remove(index); // delete list
         printTodos();
+    }
+
+    static void addItem(){
+        int index = userMenuChoice(); // get user num input
+        char addItem; 
+        do{ // keep asking if user wants to enter items
+            System.out.print("Enter item (y/n)? ");
+            addItem = cin.next().charAt(0);
+            if(addItem == 'y'){
+                System.out.print("Enter item: "); // ask for item name
+                String itemName = cin.next();
+                System.out.print("Enter due date (y/n)? "); // ask for due dates
+                char addDate = cin.next().charAt(0);
+                String date;
+                if(addDate == 'y'){
+                    do{ // keep asking for date if wrong format
+                        System.out.print("Enter due date (MM/DD/YYYY): ");
+                        date = cin.next();
+                        if(!checkDate(date)){  // if wrong format
+                            System.out.println("Error. Check format of date.");
+                        }
+                    } while(!checkDate(date));
+                    
+                }
+                else{
+                    date = "NA";
+                }
+                todoLists.get(index).addItem(itemName, date);
+            }
+        } while(addItem == 'y');
+
+        System.out.println("Item(s) added");
+        printTodos();
+    }
+
+    static void delItem(){
+        int index = userMenuChoice(); // get user num input
+        char delItem;
+        System.out.println(todoLists.get(index).getItems());
+        do{ // keep asking if user wants to enter items
+            System.out.print("Enter item (y/n)? ");
+            delItem = cin.next().charAt(0);
+            if(delItem == 'y'){
+                System.out.print("Enter item: "); // ask for item name
+                String itemName = cin.next();
+                todoLists.get(index).delItem(itemName); 
+            }
+        } while(delItem == 'y');
+
+        System.out.println("Items deleted");
+        printTodos();
+        
     }
 
     static void chooseLists(){ // CASE 6: choose lists to view
