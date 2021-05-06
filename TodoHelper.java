@@ -26,7 +26,7 @@ class TodoHelper{
                 case '2': delList(); break;
                 case '3': addItem(); break;
                 case '4': delItem(); break;
-                //case '5':
+                case '5': viewAll(); break;
                 case '6': chooseLists(); break;
                 case '7': findDueDates(); break;
                 case '0': writeFile(filename); System.out.println("Goodbye. Changes are saved in file \"todoList.txt\"."); break; // exit
@@ -134,7 +134,7 @@ class TodoHelper{
         printTodos();
     }
 
-    static void addItem(){
+    static void addItem(){ // CASE 3: add item to an existing list
         int index = userMenuChoice(); // get user num input
         char addItem; 
         cin.useDelimiter(System.lineSeparator()); // use next() instead of nextLine()
@@ -168,7 +168,7 @@ class TodoHelper{
         printTodos();
     }
 
-    static void delItem(){
+    static void delItem(){// CASE 4: delete an item from existing list
         int index = userMenuChoice(); // get user num input
         char delItem;
         System.out.println(todoLists.get(index).getItems());
@@ -178,13 +178,16 @@ class TodoHelper{
             if(delItem == 'y'){
                 System.out.print("Enter item: "); // ask for item name
                 String itemName = cin.next();
-                todoLists.get(index).delItem(itemName); 
+                todoLists.get(index).delItem(itemName); // delete the item
             }
         } while(delItem == 'y');
 
         System.out.println("Items deleted");
         printTodos();
-        
+    }
+
+    static void viewAll(){// CASE 5: view all lists and items
+        printTodos();// print all the lists and items in the lists
     }
 
     static void chooseLists(){ // CASE 6: choose lists to view
