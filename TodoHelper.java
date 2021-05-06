@@ -22,13 +22,13 @@ class TodoHelper{
             System.out.print("\nMenu.\n1.Create new list\n2.Delete list\n3.Add item to existing list\n4.Delete item from existing list\n5.View all lists and items\n6.Choose list to view\n7.Find all items due on a date\n0.Exit\nOption? "); 
             op = cin.next().charAt(0); 
             switch(op){
-                case '1': newList(); break;
-                case '2': delList(); break;
-                case '3': addItem(); break;
-                case '4': delItem(); break;
-                case '5': viewAll(); break;
-                case '6': chooseLists(); break;
-                case '7': findDueDates(); break;
+                case '1': newList(); break; // create a new list
+                case '2': delList(); break; // delete a whole list
+                case '3': addItem(); break; // add item and date to existing list
+                case '4': delItem(); break; // delete item an item in list
+                case '5': printTodos(); break; // print all lists
+                case '6': chooseLists(); break; // chose lists to print
+                case '7': findDueDates(); break; // find all items due on a date
                 case '0': writeFile(filename); System.out.println("Goodbye. Changes are saved in file \"todoList.txt\"."); break; // exit
                 default: System.out.println("Error. Enter a number in menu.");
             }
@@ -186,8 +186,14 @@ class TodoHelper{
         printTodos();
     }
 
-    static void viewAll(){// CASE 5: view all lists and items
-        printTodos();// print all the lists and items in the lists
+    static void printTodos(){ // CASE 5: print todoLists
+        if(todoLists.isEmpty()){
+            System.out.println("No lists stored.");
+            return;
+        }
+        for(TodoList t : todoLists){
+            System.out.println(t);
+        }
     }
 
     static void chooseLists(){ // CASE 6: choose lists to view
@@ -278,16 +284,6 @@ class TodoHelper{
             return false;
         }
         return true;
-    }
- 
-    static void printTodos(){ // print todoLists
-        if(todoLists.isEmpty()){
-            System.out.println("No lists stored.");
-            return;
-        }
-        for(TodoList t : todoLists){
-            System.out.println(t);
-        }
     }
 }
 
