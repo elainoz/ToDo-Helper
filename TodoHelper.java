@@ -172,8 +172,9 @@ class TodoHelper{
         int index = userMenuChoice(); // get user num input
         char delItem;
         System.out.println(todoLists.get(index).getItems());
+        cin.useDelimiter(System.lineSeparator()); // use next() instead of nextLine()
         do{ // keep asking if user wants to enter items
-            System.out.print("Enter item (y/n)? ");
+            System.out.print("Delete item (y/n)? ");
             delItem = cin.next().charAt(0);
             if(delItem == 'y'){
                 System.out.print("Enter item: "); // ask for item name
