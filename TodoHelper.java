@@ -76,8 +76,8 @@ class TodoHelper{
             Object[] itemNames = t.getItems().keySet().toArray(); // key set
             Object[] dates = t.getItems().values().toArray(); // values
             for(int i = 0; i < itemNames.length; i++){
-                fout.write("," + itemNames[i] + "," + dates[i]); // write item,date
-            }
+                fout.write("," + String.valueOf(itemNames[i]).trim() + "," + String.valueOf(dates[i]).trim()); // write item,date
+            } 
             fout.write("\n"); 
         }
         fout.close();
