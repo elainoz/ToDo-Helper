@@ -2,4 +2,4 @@ Work,attend meeting,05/23/21  ,submit application,02/17/22,take role,NA
 English Homework,read book,05/10/21  ,finish essay,05/21/21
 Chores,clean room,04/14/21  ,wash dishes,NA
 Volunteering,visit animal shelter,04/22/22,watch kids,12/12/21  
-Extracurriculars,attend dance,class,NA
+Extracurriculars,attend dance class,NA
