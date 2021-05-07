@@ -43,16 +43,22 @@ class TodoHelper{
         catch(IOException ex){
             System.out.println(ex);
         }
-        while(fin.hasNext()){ 
-            String line = fin.nextLine(); // read line by line
-            String[] arr = line.split(","); // listName, item1, date1, item2, date2...
-            String name = arr[0];
-            HashMap<String, String> items = new HashMap<>(); // key=itemname, val=date
-            for(int i = 1; i < arr.length; i+=2){ // add items/dates to hashmap
-                items.put(arr[i], arr[i+1]);
+        try{
+            while(fin.hasNext()){ 
+                String line = fin.nextLine(); // read line by line
+                String[] arr = line.split(","); // listName, item1, date1, item2, date2...
+                String name = arr[0];
+                HashMap<String, String> items = new HashMap<>(); // key=itemname, val=date
+                for(int i = 1; i < arr.length; i+=2){ // add items/dates to hashmap
+                    items.put(arr[i], arr[i+1]);
+                }
+                TodoList t = new TodoList(name, items); // new todolist object
+                todoLists.add(t); // add to arraylist
             }
-            TodoList t = new TodoList(name, items); // new todolist object
-            todoLists.add(t); // add to arraylist
+        }
+        catch(Exception e){ // check if file written incorrectly
+            System.out.println("Error reading file. Check syntax.");
+            todoLists.clear();
         }
         fin.close();
     }
