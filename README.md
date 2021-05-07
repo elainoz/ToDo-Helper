@@ -34,8 +34,8 @@ Menu.
 When the user exits the program, they will have the option to save their changes in a file called "todoList.txt". An example of the file format is shown below:  
 The general form is: ListName,Item1,Date1,Item2,Date2  
   
-Work,submit application,02/17/22,take role,NA,attend meeting,05/23/21  
-English Homework,finish essay,05/21/21,read book,05/10/21  
-Chores,wash dishes,NA,clean room,04/14/21  
-Volunteering,visit animal shelter,04/22/22,watch kids,12/12/21  
+Work,submit application,02/17/2022,take role,NA,attend meeting,05/23/2021  
+English Homework,finish essay,05/21/2021,read book,05/10/2021  
+Chores,wash dishes,NA,clean room,04/14/2021  
+Volunteering,visit animal shelter,04/22/2022,watch kids,12/12/2021  
 Extracurriculars,attend dance class,NA
