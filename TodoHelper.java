@@ -180,10 +180,11 @@ class TodoHelper{
                 System.out.print("Enter item: "); // ask for item name
                 String itemName = cin.next();
                 todoLists.get(index).delItem(itemName); // delete the item
+                System.out.println("Item deleted");
             }
         } while(delItem == 'y');
 
-        System.out.println("Items deleted");
+        System.out.println("Current todo list: ");
         printTodos();
     }
 
