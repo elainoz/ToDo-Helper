@@ -4,8 +4,19 @@ Elaine Zhang, Ruoxi Li
 May 1, 2021  
 CSC 212: Programming with Data Structures Spring 2021 Smith College
 
-Files/Software: Program is coded in Java and run on MacOS and Windows.
+### Files/Software
+Program is coded in Java and run on MacOS and Windows. File needed: "todoList.txt".  
 
+An example of the file format is shown below:  
+The general form is: ListName,Item1,Date1,Item2,Date2  
+  
+Work,submit application,02/17/2022,take role,NA,attend meeting,05/23/2021  
+English Homework,finish essay,05/21/2021,read book,05/10/2021  
+Chores,wash dishes,NA,clean room,04/14/2021  
+Volunteering,visit animal shelter,04/22/2022,watch kids,12/12/2021  
+Extracurriculars,attend dance class,NA
+
+### About Our Program
 Our program helps to keep track of todo lists. The user will be able to create their own categories as new lists and add or delete elements from the lists. They will be able to choose different viewing options, such as viewing a select few of lists of their choice, viewing all the lists, and viewing items due on a specified date. There is also the option to write all the lists into a file, so the user can print it out on paper. 
 
 We will use an ArrayList of TodoList objects to store the todo lists. A TodoList objects has the following attributes:  
@@ -31,11 +42,4 @@ Menu.
     - Enter the date in the form "MM/DD/YYYY". Items with the corresponding date will be displayed. The program will given an error if the form is written incorrectly.
 0. Exit
 
-When the user exits the program, they will have the option to save their changes in a file called "todoList.txt". An example of the file format is shown below:  
-The general form is: ListName,Item1,Date1,Item2,Date2  
-  
-Work,submit application,02/17/2022,take role,NA,attend meeting,05/23/2021  
-English Homework,finish essay,05/21/2021,read book,05/10/2021  
-Chores,wash dishes,NA,clean room,04/14/2021  
-Volunteering,visit animal shelter,04/22/2022,watch kids,12/12/2021  
-Extracurriculars,attend dance class,NA
+When the user exits the program, they will have the option to save their changes in a file called "todoList.txt". 
